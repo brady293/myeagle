@@ -1,0 +1,59 @@
+/*=====css======*/
+footer {
+  width: 100%;
+}
+
+body {
+  background-color: #333;
+  color: #333;
+  padding: null;
+  margin: 10px auto;
+  border: #f00;
+}
+
+a {
+  font-size: 16px;
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.wrapper h1 {
+  font-size: 30px;
+}
+
+.wrapper .title {
+  font-size: 12px;
+  display: inline-block;
+}
+
+span {
+  font-size: 28px;
+}
+
+.index h1 {
+  font-size: 40px;
+}
+
+.about h2 {
+  font-size: 16px;
+}
+
+a {
+  color: #333;
+}
+
+a:hover {
+  color: #f00;
+}
+
+a::before {
+  content: '';
+}
+
+a .wrapper {
+  color: #333;
+}
+/*# sourceMappingURL=style.css.map */

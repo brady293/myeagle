@@ -1,0 +1,12 @@
+//for 迴圈
+@mixin  pull($var , $dir){
+    @for $i from 1 through 10{
+        .box_#{$i}{
+            position: relative;
+            width: $i * 1px;
+            #{$dir}: $i * 1px;
+        }
+    } 
+    
+}
+

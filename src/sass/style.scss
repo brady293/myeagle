@@ -1,0 +1,342 @@
+//引用var .scss
+@import 'base/var';
+@import 'base/reset';
+// @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'layout/footer';
+@import 'layout/header';
+@import 'page/about';
+@import 'page/index';
+@import 'mixin/mixin';
+
+body {
+    // $bgc: #333;
+    $a: 10px; //區域變數
+    background-color: $bgc; //取到區域變數值
+    color: $color;
+    padding: null; //屬性刪除
+    margin: $margin;
+    border: map-get($map, 'red');
+    text-align: center;
+}
+
+//取不到區域變數的值
+a {
+    // font-size: $a;
+    font-size: $fontSize;
+}
+
+.wrapper {
+    // width: 1200px;
+    // margin: 0 auto;
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .title {
+        font-size: 12px;
+        display: inline-block;
+    }
+}
+
+span {
+    font-size: 28px;
+}
+
+//index
+// .index {
+//     h1 {
+//         // font-size: (40px / 10); //要括號他才知道要除
+//     }
+// }
+
+//about
+.about h2 {
+    font-size: 16px;
+}
+
+//偽元素
+a {
+    color: #333;
+
+    &:hover {
+        color: #f00;
+    }
+
+    &::before {
+        content: '';
+    }
+}
+
+//運算函式
+.test {
+    width: round(33.5333) + px;
+    width: floor(33.5333) + px;
+    width: ceil(33.3333) + px;
+}
+
+//顏色函式
+.color {
+    color: lighten(#000000, 90); //顏色變深
+    background-color: darken(#fff, 40); //顏色變淺
+}
+
+//範例運用
+$a_color : #f20;
+
+
+a {
+    color: $a_color;
+    transition: .4s all ease;
+
+    &:hover {
+        color: darken($a_color, 30);
+    }
+}
+
+//按鈕
+$btn : #fff;
+$hover : lighten(blue, 20);
+
+
+.btn {
+    width: 200px;
+    height: 50px;
+    transition: .4s all ease;
+    background: $btn;
+    border: 0px solid$hover;
+    border-radius: 10PX;
+    color: #000000;
+
+    &:hover {
+        color: $btn;
+        background-color: $hover;
+    }
+}
+
+//運算函式範例 h1 ~ h5
+
+
+$body_font : 16px;
+
+h1 {
+    font-size: round($body_font * 4.5)
+}
+
+h2 {
+    font-size: round($body_font * 3.5)
+}
+
+h3 {
+    font-size: round($body_font * 3)
+}
+
+h4 {
+    font-size: round($body_font * 2.5)
+}
+
+h5 {
+    font-size: round($body_font * 2)
+}
+
+//判斷式
+
+$con : false;
+
+.if {
+    @if($con) {
+        width: 100%;
+    }
+
+    @else {
+        width: initial;
+    }
+}
+
+$witch : 996;
+
+.container {
+    @if ($witch==100) {
+        width: 100%;
+
+    }
+
+    @else {
+        width: $witch + px;
+        margin: auto;
+    }
+}
+
+//函式
+
+@mixin center($minHight:null) {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: $minHight;
+}
+
+.center {
+    @include center();
+}
+
+.layout {
+    width: 1200px;
+    @include center(100px);
+}
+
+//按鈕(函式)
+$btn : #fff;
+$hover : lighten(blue, 20);
+
+
+.btn {
+    width: 200px;
+    height: 50px;
+    transition: .4s all ease;
+    background: $btn;
+    border: 0px solid$hover;
+    border-radius: 10PX;
+    color: #000000;
+
+    &:hover {
+        color: $btn;
+        background-color: $hover;
+    }
+}
+
+//layout 範例
+
+@mixin layout($witch, $bgc:null) {
+    @if($witch==100) {
+        width: 100%;
+    }
+
+    @else {
+        max-width: $witch + px;
+        width: 100%;
+        //引用其他函式
+        @include center()
+    }
+
+    background-color: $bgc;
+}
+
+.w100 {
+    @include layout(100, lighten(#f20, 30));
+    min-height: 300px;
+}
+
+.w1200 {
+    @include layout(996, darken(#f29, 30));
+    min-height: 300px;
+}
+
+
+
+@mixin font($font, $var, $path) {
+    .font20 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: $font;
+        #{$var}: 10px;
+        background-image: url(./#{$path}/aa.png)
+    }
+}
+
+@include font(30px, padding, dist/images);
+
+//mixin
+@include pull(200, top);
+
+
+//grid
+@mixin grid($col) {
+    @for $i from 1 through $col {
+        .col-#{$i} {
+            flex: 0 0 auto;
+            // width: ($i / $col) *100%;
+        }
+    }
+}
+
+@include grid(13);
+
+
+//each迴圈
+
+$list : a1 a2 a3 banner;
+
+
+@mixin img($list,$w) {
+    
+    @each $a in $list{
+        .img_#{$a}{
+            width: $w;
+            background-image: url('./images/#{$a}.jpg');
+            background-repeat: none;
+            background-size: cover;
+            object-fit: cover;
+        }
+    }
+}
+
+@include img(a1 banner,80%);
+@include img(a2 ,30%);
+@include img(a3 ,20%);
+
+
+//map
+$title :(
+    "h1" : 40px,
+    "h2" : 30px,
+    "h3" : 20px,
+    "h4" : 10px,
+    "h5" : 5px,
+);
+
+@each $key ,$val in $title{
+    
+}
+
+
+//rwd斷點(未完成)
+// @mixin m(){
+//     @media all and(max-width:996px){
+//         @content
+//     }
+// }; 
+
+// @mixin t(){
+//     @media all and(max-width:996px){
+//         @content
+//     }
+// }; 
+
+// @include m(){
+
+// }
+
+//each迴圈
+
+$font_size:(
+    "s1":16px,
+    "s2":26px,
+);
+
+$basic : (
+   "white" : #fff,
+   "dark" : #333,
+   "primary" : #1A242A,
+   "secondary" : #445F6F,
+   "tretiary" : #7697AB,
+   "disabled" : #ABAEB0,
+);
+
+@each $key,$val in $basic{
+    .#{$key}{
+        color:$val;
+    }
+}   
+
+
+
+
